@@ -58,4 +58,4 @@ def extract_binding_pocket(pdb_path, ref_ligand_resn, radius=6.0, outdir="data")
     # Cleanup
     cmd.delete("all")
 
-    return str(pocket_path)
+    return str(pocket_path), str(ligand_sdf_path)
