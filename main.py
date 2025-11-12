@@ -21,7 +21,10 @@ def main():
     ref_ligand_resn = cfg["residue_name"]
     radius = cfg["pocket_radius"]
 
-    pocket_path, ligand_sdf_path = extract_binding_pocket(pdb_path, ref_ligand_resn, radius, outdir)
+    #pocket_path, ligand_sdf_path = extract_binding_pocket(pdb_path, ref_ligand_resn, radius, outdir)
+
+    pocket_path = "data/pockets/mrgx4_human_8K4S_pocket_JW0.pdb"
+    ligand_sdf_path = "data/pockets/mrgx4_human_8K4S_ligand_JW0.sdf"
 
     print(f"Pocket saved at: {pocket_path}")
     print(f"Ligand SDF saved at: {ligand_sdf_path}")

@@ -2,7 +2,7 @@ import os
 import requests
 import yaml
 
-def download_gpcrdb_structure(pdb_id, outdir="data/"):
+def download_gpcrdb_structure(pdb_id, outdir="data"):
 
     os.makedirs(outdir, exist_ok=True)
 

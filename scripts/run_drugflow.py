@@ -1,10 +1,11 @@
 import os
 import subprocess
 from pathlib import Path
+import sys
 
-def run_drugflow(pocket_pdb, ligand_sdf, outdir="data/generated_ligands", num_ligands=50, device="cpu"):
+def run_drugflow(pocket_pdb, ligand_sdf, outdir="data", num_ligands=50, device="cpu"):
     """
-    Runs DrugFlow to generate de novo ligands for a protein pocket.
+    Runs DrugFlow to generate de novo ligands for a given protein pocket
 
     Args:
         pocket_pdb (str): Path to the protein pocket PDB file.
@@ -23,18 +24,21 @@ def run_drugflow(pocket_pdb, ligand_sdf, outdir="data/generated_ligands", num_li
     outdir.mkdir(parents=True, exist_ok=True)
 
     drugflow_path = Path(__file__).parents[1] / "externals" / "drugflow"
-    run_script = drugflow_path / "scripts" / "generate.py"  # main entry point in DrugFlow repo
+    run_script = drugflow_path / "src" / "generate.py" 
+    checkpoint_path = drugflow_path / "checkpoints" / "drugflow.ckpt"
 
     if not run_script.exists():
         raise FileNotFoundError(f"Could not find generate.py at {run_script}")
 
     cmd = [
-        "python", str(run_script),
-        "--pocket", str(pocket_pdb),
+        sys.executable, str(run_script),
+        "--protein", str(pocket_pdb),
         "--ref_ligand", str(ligand_sdf),
-        "--num_samples", str(num_ligands),
-        "--device", device,
-        "--output", str(outdir)
+        "--checkpoint", str(checkpoint_path),
+        "--n_samples", str(num_ligands),
+        "--device", str(device),
+        "--metrics_output", str(outdir / "metrics" / "metrics.csv"),
+        "--output", str(outdir / "generated_ligands" / "generated_ligands.sdf")
     ]
 
     print(f"Running DrugFlow to generate {num_ligands} ligands...")
@@ -42,13 +46,3 @@ def run_drugflow(pocket_pdb, ligand_sdf, outdir="data/generated_ligands", num_li
     print(f"Ligands saved to: {outdir}")
 
     return str(outdir)
-
-
-if __name__ == "__main__":
-    run_drugflow(
-        pocket_pdb="data/pockets/8K4S_pocket_LIG.pdb",
-        ligand_sdf="data/pockets/8K4S_ligand_LIG.sdf",
-        outdir="data/generated_ligands/8K4S",
-        num_ligands=50,
-        device="cpu"
-    )
