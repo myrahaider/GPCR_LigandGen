@@ -54,7 +54,6 @@ def extract_binding_pocket(pdb_path, ref_ligand_resn, radius=6.0, outdir="data")
     
     print(f"Exported ligand SDF to {ligand_sdf_path}")
 
-
     # Cleanup
     cmd.delete("all")
 
