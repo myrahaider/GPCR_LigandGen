@@ -1,4 +1,6 @@
-structure:
-  pdb_id: "8K4S"
-  outdir: "data/"
-  
+pdb_id: "8K4S"
+outdir: "data/"
+
+pdb_file: "data/raw/mrgx4_human_8K4S.pdb"
+residue_name: "JW0"
+pocket_radius: 5.0

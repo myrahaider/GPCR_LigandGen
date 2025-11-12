@@ -11,15 +11,21 @@ def main():
     with open('configs/config.yaml', 'r') as f:
         cfg = yaml.safe_load(f)
 
-    pdb_id = cfg["structure"]["pdb_id"]
-    outdir = cfg["structure"]["outdir"]
+    pdb_id = cfg["pdb_id"]
+    outdir = cfg["outdir"]
+    pdb_path = cfg["pdb_file"]
 
-    pdb_path = download_gpcrdb_structure(pdb_id, outdir)
+    #pdb_path = download_gpcrdb_structure(pdb_id, outdir)
 
     print(f"Structure saved at: {pdb_path}")
 
-    # extract pocket
+    ref_ligand_resn = cfg["residue_name"]
+    radius = cfg["pocket_radius"]
+
+    pocket_path = extract_binding_pocket(pdb_path, ref_ligand_resn, radius, outdir)
+
     
+
 
 
 
