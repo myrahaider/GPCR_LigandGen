@@ -6,8 +6,6 @@ from scripts.extract_pocket import extract_binding_pocket
 
 def main():
 
-    print('hello')
-
     with open('configs/config.yaml', 'r') as f:
         cfg = yaml.safe_load(f)
 
@@ -24,7 +22,7 @@ def main():
 
     pocket_path = extract_binding_pocket(pdb_path, ref_ligand_resn, radius, outdir)
 
-    
+
 
 
 
