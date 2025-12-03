@@ -47,6 +47,13 @@ def extract_binding_pocket(pdb_path, ref_ligand_resn, radius=6.0, outdir="data")
     cmd.save(str(pocket_path), "pocket")
     print(f"Saved pocket (radius={radius}Å) to {pocket_path}")
 
+    # # Save pocket without ligand for posebusters later
+    # pocket_no_ligand_sel = f"pocket and not ({ligand_sel})"
+    # # pocket_no_ligand_sel = f"(br. ({ligand_sel} expand {radius})) and not resn JW0"
+    # cmd.select("pocketonly", pocket_no_ligand_sel)
+    # cmd.save(str(pocket_path), "pocket_only")
+    # print(f"Saved pocket without ligand (radius={radius}Å) to {pocket_path}")
+
     # convert ligand PDB to SDF using RDKit
     ligand = Chem.MolFromPDBFile(str(ligand_path), removeHs=False)
     ligand_sdf_path = ligand_path.with_suffix(".sdf")
