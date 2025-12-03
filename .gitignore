@@ -1,4 +1,6 @@
 externals/
 checkpoints/
 data/
-gnina/
+gnina
+./gnina
+**/gnina
